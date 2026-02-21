@@ -1660,7 +1660,10 @@ Checked On  : {datetime.now().strftime('%d-%m-%Y')}
                 timeout=30
             ).json()
 
-            data = res.get("data", [])
+            if isinstance(res, list):
+                data = res
+            else:
+                data = res.get("data", [])
 
             if not isinstance(data, list) or not data:
                 delete_message(chat_id, loading)
